@@ -73,9 +73,10 @@ Deal Creation/Association: Simulates the critical conversion event from a 30-day
 
 The front-end simulates the Breezy platform's Admin UI, showing HubSpot data sync status, while the forms mimic the API calls the Breezy engineering team would build into their production backend triggers.
 
-C. AI Usage Documentation Google AI Gemini was used to help debug the code for the backend .env file, providing errors and creating the front-end .jsx file.
+C. AI Usage Documentation 
+Google AI Gemini was used to help figure out the code to create the index.html, frontend.js, and update the server.js files. I was able to successfully test it apart from the call to Claude, which keeps erroring out despite a significant attempt at debugging with Gemini. I confirmed it is 
 
-It was also used to provide guidance on coding and help create the read.md file.
+essential to not blindly rely on AI and test any code that is provide,d but also to accept when a piece of code does not work and I do not have the knowledge to fix it. My next step here, if I could, would be to reach out to a developer to work on this together. 
 
 D. HubSpot Data Architecture
 
@@ -176,13 +177,15 @@ E. AI Feature Explanation
 
 AI tool chosen: Anthropic
 
-Why: For Breezy, whose primary goal is tracking subscription conversion, the value of integrating an LLM like Anthropic's Claude is centered on transforming structured, but static, CRM data into actionable, qualitative sales intelligence. Claude offers specific architectural and performance characteristics that align well with a CRM
+Why: For Breezy, whose primary goal is tracking subscription conversion, the value of integrating an LLM like Anthropic's Claude is centered on transforming structured, but static, CRM data into actionable, qualitative sales intelligence. Claude offers specific architectural and performance 
 
-integration like HubSpot. Moreover, Breezy will be able to use the HubSpot Connector with Claude for easy access to the data.
+characteristics that align well with a CRM integration like HubSpot. Moreover, Breezy will be able to use the HubSpot Connector with Claude for easy access to the data.
 
 What was challenging: At my level, I did not have access to Gemini AI options, so I had to pay $5 to access the Claude API key.
 
-Routing rules vs AI: Routing rules are a better fit when the data is predictable and simple, such as structured data. This is more of a fixed process that is repeatable. AI is more useful for unstructured data that is complex and that will not be predictable, such as setting values for different names, roles, or notes. AI is able to determine patterns and provide insights that a routing rule would not be able to do.
+Routing rules vs AI: Routing rules are a better fit when the data is predictable and simple, such as structured data. This is more of a fixed process that is repeatable. AI is more useful for unstructured data that is complex and that will not be predictable, such as setting values for 
+
+different names, roles, or notes. AI can determine patterns and provide insights that a routing rule would not be able to do.
 
 F. Design Decisions
 

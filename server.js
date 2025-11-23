@@ -234,3 +234,75 @@ process.on('unhandledRejection', (reason, promise) => {
   console.error('❌ Unhandled Rejection at:', promise, 'reason:', reason);
   gracefulShutdown('UNHANDLED_REJECTION');
 });
+
+// 1. Imports and Setup
+
+const Anthropic = require('@anthropic-ai/sdk');
+const dotenv = require('dotenv');
+
+
+// Initialize the Anthropic Client with the API key from .env
+const anthropic = new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY,
+});
+
+// 2. Middleware
+// Enable JSON body parsing for Express
+app.use(express.json()); 
+
+// Basic CORS setup (important for frontend to call the backend)
+app.use((req, res, next) => {
+  // Allow requests from all origins (you can restrict this in production)
+  res.setHeader('Access-Control-Allow-Origin', '*'); 
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
+
+// 3. API Endpoint to Call Claude
+app.post('/api/generate-content', async (req, res) => {
+  // Extract the user's prompt from the request body
+  const { prompt } = req.body;
+
+  // Basic validation
+  if (!prompt) {
+    return res.status(400).json({ error: 'Prompt is required in the request body.' });
+  }
+
+  try {
+    // Call the Anthropic Messages API
+    const response = await anthropic.messages.create({
+      model: 'claude-3-5-sonnet-20240620', // Recommended powerful model
+      max_tokens: 1024,
+      messages: [
+        {
+          // Optional: Set the context/behavior for the AI
+          role: 'system', 
+          content: 'You are a concise and helpful assistant.',
+        },
+        { 
+          // The user's message
+          role: 'user', 
+          content: prompt 
+        },
+      ],
+    });
+
+    // Extract the text content from the response
+    const assistantReply = response.content[0].text;
+
+    // Send the AI's response back to the frontend
+    res.json({ reply: assistantReply });
+
+  } catch (error) {
+    console.error('Anthropic API Error:', error);
+    // Send a generic error message to the client for security
+    res.status(500).json({ error: 'An error occurred while communicating with the AI service.' });
+  }
+});
+
+// 4. Start Server
+app.listen(PORT, () => {
+  console.log(`🚀 Server running at http://localhost:${port}`);
+  console.log('Endpoint ready at /api/generate-content');
+});

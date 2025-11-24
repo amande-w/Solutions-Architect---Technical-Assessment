@@ -73,6 +73,8 @@ Deal Creation/Association: Simulates the critical conversion event from a 30-day
 
 The front-end simulates the Breezy platform's Admin UI, showing HubSpot data sync status, while the forms mimic the API calls the Breezy engineering team would build into their production backend triggers.
 
+Confirm creation on Breezy HubSpot account: https://app.hubspot.com/contacts/50740418/objects/0-1/views/all/list.
+
 C. AI Usage Documentation 
 Google AI Gemini was used to help figure out the code to create the index.html, frontend.js, and update the server.js files. I was able to successfully test it apart from the call to Claude, which keeps erroring out despite a significant attempt at debugging with Gemini. I confirmed it is 
 
